@@ -121,7 +121,7 @@ object ClashStatus {
         if (isCmdRunning) return
         isCmdRunning = true
         Shell.cmd(
-            "${ClashConfig.scriptsPath}/clash.service -s && ${ClashConfig.scriptsPath}/clash.iptables -s"
+            "echo 0 > /data/adb/ksu/modules/ClashForKernelSU/control"
         ).submit{
             isCmdRunning = false
         }
@@ -131,8 +131,7 @@ object ClashStatus {
         if (isCmdRunning) return
         isCmdRunning = true
         Shell.cmd(
-            "${ClashConfig.scriptsPath}/clash.service -k",
-            "${ClashConfig.scriptsPath}/clash.iptables -k"
+            "echo 1 > /data/adb/ksu/modules/ClashForKernelSU/control"
         ).submit{
             isCmdRunning = false
         }
@@ -142,8 +141,8 @@ object ClashStatus {
         if (isCmdRunning) return
         isCmdRunning = true
         Shell.cmd(
-            "${ClashConfig.scriptsPath}/clash.service -k",
-            "${ClashConfig.scriptsPath}/clash.service -s"
+            "echo 1 > /data/adb/ksu/modules/ClashForKernelSU/control",
+            "echo 0 > /data/adb/ksu/modules/ClashForKernelSU/control"
         ).submit{
             isCmdRunning = false
         }
