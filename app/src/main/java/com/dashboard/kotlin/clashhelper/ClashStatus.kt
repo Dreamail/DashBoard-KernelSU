@@ -138,14 +138,8 @@ object ClashStatus {
     }
 
     fun restart(){
-        if (isCmdRunning) return
-        isCmdRunning = true
-        Shell.cmd(
-            "echo 1 > /data/adb/ksu/modules/ClashForKernelSU/control",
-            "echo 0 > /data/adb/ksu/modules/ClashForKernelSU/control"
-        ).submit{
-            isCmdRunning = false
-        }
+        stop()
+        start()
     }
 
     fun switch() =
