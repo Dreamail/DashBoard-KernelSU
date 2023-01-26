@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/menu_update_geox"
+        android:id="@+id/menu_restart_clash"
         android:icon="@drawable/ic_restart"
         android:title="@string/menu_update_geox"
         app:showAsAction="ifRoom"/>

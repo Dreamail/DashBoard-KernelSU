@@ -235,25 +235,15 @@ class MainPage : Fragment(), androidx.appcompat.widget.Toolbar.OnMenuItemClickLi
 
     override fun onMenuItemClick(item: MenuItem): Boolean =
         when(item.itemId){
-            R.id.menu_update_geox -> {
+            R.id.menu_restart_clash -> {
                 when{
                     !Shell.cmd("su -c 'exit'").exec().isSuccess ->
                         Toast.makeText(context, "莫得权限呢", Toast.LENGTH_SHORT).show()
                     ClashStatus.isCmdRunning ->
                         Toast.makeText(context, "现在不可以哦", Toast.LENGTH_SHORT).show()
-                    else -> ClashStatus.updateGeox()
-                }
-                true
-            }
-            R.id.menu_update_config -> {
-                lifecycleScope.launch {
-                    val status = ClashStatus.getRunStatus()
-                    if (status == ClashStatus.Status.Running)
-                        ClashConfig.updateConfig{
-                            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                        }
-                    else
-                        Toast.makeText(context, "Clash没启动呢", Toast.LENGTH_SHORT).show()
+                    else -> {
+                        ClashStatus.restart()
+                    }
                 }
                 true
             }

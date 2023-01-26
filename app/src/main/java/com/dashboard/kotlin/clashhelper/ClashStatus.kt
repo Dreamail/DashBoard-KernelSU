@@ -138,6 +138,17 @@ object ClashStatus {
         }
     }
 
+    fun restart(){
+        if (isCmdRunning) return
+        isCmdRunning = true
+        Shell.cmd(
+            "${ClashConfig.scriptsPath}/clash.service -k",
+            "${ClashConfig.scriptsPath}/clash.service -s"
+        ).submit{
+            isCmdRunning = false
+        }
+    }
+
     fun switch() =
         GlobalScope.launch {
             when (getRunStatus()) {
@@ -146,13 +157,4 @@ object ClashStatus {
                 Stop -> start()
             }
         }
-
-
-    fun updateGeox(){
-        if (isCmdRunning) return
-        isCmdRunning = true
-        Shell.cmd("${ClashConfig.scriptsPath}/clash.tool -u").submit{
-            isCmdRunning = false
-        }
-    }
 }
